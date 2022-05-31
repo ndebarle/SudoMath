@@ -1,7 +1,6 @@
 ## UML : diagramme
 
-```plantuml
-
+```mermaid
     classDiagram
     class GrilleSudoku
     GrilleSudoku : +int[81] numeros
