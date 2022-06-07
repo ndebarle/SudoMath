@@ -9,21 +9,23 @@ public class Matrix99 {
 	}
 
 	public boolean estLigne(int value, int num_ligne) {
-		boolean response = False;
+		boolean response = false;
 		for (int i = 0; i < 9; i++) {
 			if (this.mat[num_ligne][i] == value) {
-				response = True;
+				response = true;
 			}
 		}
+		return response;
 	}
 
 	public boolean estColonne(int value, int num_col) {
-		boolean response = False;
+		boolean response = false;
 		for (int i = 0; i < 9; i++) {
 			if (this.mat[i][num_col] == value) {
-				response = True;
+				response = true;
 			}
 		}
+		return response;
 	}
 
 	public int[][] quelCarre(int num_ligne, int num_col) {
@@ -129,13 +131,14 @@ public class Matrix99 {
 	}
 
 	public boolean estCarre(int value, int[][] carre) {
-		boolean response = False;
+		boolean response = false;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (carre[i][j] == value) {
-					response = True;
+					response = true;
 				}
 			}
 		}
+		return response;
 	}
 }
