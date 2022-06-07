@@ -1,4 +1,4 @@
-package sudoku;
+package fr.ensai.projet;
 
 public class Matrix99 {
 

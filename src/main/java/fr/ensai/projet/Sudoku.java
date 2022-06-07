@@ -1,4 +1,4 @@
-package sudoku;
+package fr.ensai.projet;
 
 public class Sudoku {
 
@@ -6,7 +6,7 @@ public class Sudoku {
 	public int[][][] possibilites; // la liste des chiffrs possibles pour chaque case
 
 	public Sudoku() {
-		this.mat = new Matrix99();
+		this.grille = new Matrix99();
 	}
 
 	// Une fois l'élément de la ligne i et de la colonne j modifié,
