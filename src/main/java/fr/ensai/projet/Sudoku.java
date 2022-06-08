@@ -1,5 +1,7 @@
 package fr.ensai.projet;
 
+import java.util.Random;
+
 public class Sudoku {
 
 	public Matrix99 grille;
@@ -144,11 +146,17 @@ public class Sudoku {
 		}
 	}
 
-	public void remplir(int value, int num_ligne, int num_col) {
-		grille.remplir(value, num_ligne, num_col);
-		changeImpossibilitesLigne(value, num_ligne);
-		changeImpossibilitesColonne(value, num_col);
-		changeImpossibilitesCarre(value, num_ligne, num_col);
+	public void remplir() {
+		Random r = new Random();
+		int i = r.nextInt(9);
+		int j = r.nextInt(9);
+		int k = r.nextInt(9) + 1;
+		if (valeurEstPossible(k, i, j)) {
+			grille.remplir(k, i, j);
+			changeImpossibilitesLigne(k, i);
+			changeImpossibilitesColonne(k, j);
+			changeImpossibilitesCarre(k, i, j);
+		}
 	}
 
 }
