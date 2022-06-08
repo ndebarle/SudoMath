@@ -6,5 +6,5 @@ public class Exercices {
     public String[] variables; 
     public String[] responses;
     public String niveau;
-    public String theme; 
+    public String theme;
 }
