@@ -2,17 +2,22 @@
 
 ```mermaid
     classDiagram
-    class GrilleSudoku
-    GrilleSudoku : +int id
-    GrilleSudoku : +int[81] numeros
-    GrilleSudoku : +boolean[81] estDonne
-    GrilleSudoku : +GrilleSudoku()
-    GrilleSudoku : +EstSolvable()
-    class SujetSudomath
-    SujetSudomath : +int id
-    SujetSudomath : +String commentaire
-    SujetSudomath : +Exercice[] exercices
-    SujetSudomath : +Utilisateur auteur
+    class Sudoku
+    Sudoku : +matrix99 grille
+    Sudoku : +int[9][9][9] impossibilites
+    Sudoku : +Sudoku()
+    Sudoku : +boolean ValeurEstPossible((int value, int num_ligne, int num_col))
+    Sudoku : +void changeImpossibilitesLigne(int value, int num_ligne)
+    Sudoku : +void changeImpossibilitesColonne(int value, int num_col)
+    
+    class Matrix99
+    Sudoku o-- Matrix99
+    class EnonceSudomath
+    EnonceSudomath : +int id
+    EnonceSudomath : +String commentaire
+    EnonceSudomath : +Exercice[] exercices
+    EnonceSudomath : +Utilisateur auteur
+    EnonceSudomath : +EnonceSudomath()
     class Bloc
     Exercice o-- Bloc
     Bloc : +String[] enonces
@@ -25,23 +30,29 @@
     Exercice : +bloc[] blocs
     Exercice : +String niveau
     Exercice : +String theme
-    SujetSudomath o-- Exercice
-    ExemplaireSudomath o-- ModeleLaTeX
-    SujetSudomath o-- Utilisateur
+    Exercice : +Exercice()
+    EnonceSudomath o-- Exercice
+    SujetSudomath o-- ModeleLaTeX
+    EnonceSudomath o-- Utilisateur
     class Utilisateur
     Utilisateur : +int id
     Utilisateur : +String login
     Utilisateur : +String hashMotDePasse
-    class ExemplaireSudomath
-    ExemplaireSudomath : +GrilleSudoku[] grilles
-    ExemplaireSudomath : +SujetSudomath sujet
-    ExemplaireSudomath : +Utilisateur proprietaire
-    ExemplaireSudomath o-- GrilleSudoku
-    ExemplaireSudomath o-- SujetSudomath
+    class SujetSudomath
+    SujetSudomath : +Sudoku[] grilles
+    SujetSudomath : +EnonceSudomath sujet
+    SujetSudomath : +Utilisateur proprietaire
+    SujetSudomath : +int nbEleves
+    SujetSudomath : +SujetSudomath()
+    SujetSudomath o-- Sudoku
+    SujetSudomath o-- EnonceSudomath
+    SujetSudomath o-- Utilisateur
     class ModeleLaTeX
     ModeleLaTeX : +int id
     ModeleLaTeX : +String[] modele
     ModeleLaTeX : +Utilisateur auteur
+    ModeleLaTeX : +ModeleLaTeX()
+    ModeleLaTeX o-- Utilisateur
 
 ```
 
