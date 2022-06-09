@@ -8,6 +8,10 @@ public class Matrix99 {
 		this.mat = new int[9][9];
 	}
 
+	public void remplir(int value, int num_ligne, int num_col) {
+		this.mat[num_ligne][num_col] = value;
+	}
+
 	public boolean estLigne(int value, int num_ligne) {
 		boolean response = false;
 		for (int i = 0; i < 9; i++) {
@@ -27,6 +31,9 @@ public class Matrix99 {
 		}
 		return response;
 	}
+
+	// RENVOYER LES INDICES DE LOCALISATION DES SOUS-CARRÉS !! ET NON DIRECTEMENT
+	// LES SOUS-CARRÉS.
 
 	public int[][] quelCarre(int num_ligne, int num_col) {
 		int[][] sous_mat = new int[3][3];
@@ -141,4 +148,5 @@ public class Matrix99 {
 		}
 		return response;
 	}
+
 }
