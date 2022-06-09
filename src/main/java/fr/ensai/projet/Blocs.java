@@ -1,6 +1,6 @@
 package fr.ensai.projet;
 
-public Class Blocs {
+public class Blocs {
     public String[] enonce;
     public String[][] variable;
     public int[][] reponses;
