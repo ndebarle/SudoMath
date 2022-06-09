@@ -12,4 +12,6 @@ public class SujetSudomath {
         this.exercices = exercices;
         this.auteur = auteur;
     }
+
+    
 }
