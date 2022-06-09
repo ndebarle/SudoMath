@@ -56,14 +56,24 @@
 
 ```
 
-## Diagramme d'activité
+## Diagramme d'activité : Création d'un sujet SudoMath
 
 ```mermaid
-graph LR
-    A[Christmas] -->|Get money| B(Go shopping)
-    B --> C{Let me think}
-    C -->|One| D[Laptop]
-    C -->|Two| E[iPhone]
-    C -->|Three| F[fa:fa-car Car]
-
+stateDiagram-v2
+    [*] --> Vérification_nb_grille
+    Vérification_nb_grille --> TirageBlocs : Si nb_grille < nbEleves
+    state TirageBlocs {
+        [*] --> TirageBloc
+        TirageBloc --> TirageAleatoire : Si nb_tirage < nb_blocs 
+        TirageBloc --> EditionEnonceSudoMath : Si nb_tirage == nb_blocs 
+        TirageAleatoire --> ModificationEnonceBlocs
+        ModificationEnonceBlocs --> AjoutReponse
+        AjoutReponse --> TirageBloc
+        EditionEnonceSudoMath --> [*]
+    }
+    TirageBlocs --> RechercheGrille
+    RechercheGrille --> Vérification_nb_grille
+    Vérification_nb_grille --> CréationEnonceSudoMaths : Si nb_grille == nbEleves
+    CréationEnonceSudoMaths --> CréationSujetSudoMaths
+    CréationSujetSudoMaths --> [*]
 ```
