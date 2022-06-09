@@ -12,28 +12,25 @@ public class Matrix99 {
 		this.mat[num_ligne][num_col] = value;
 	}
 
-	public boolean estLigne(int value, int num_ligne) {
-		boolean response = false;
+	public boolean absenteLigne(int value, int num_ligne) {
+		boolean response = true;
 		for (int i = 0; i < 9; i++) {
 			if (this.mat[num_ligne][i] == value) {
-				response = true;
+				response = false;
 			}
 		}
 		return response;
 	}
 
-	public boolean estColonne(int value, int num_col) {
-		boolean response = false;
+	public boolean absenteColonne(int value, int num_col) {
+		boolean response = true;
 		for (int i = 0; i < 9; i++) {
 			if (this.mat[i][num_col] == value) {
-				response = true;
+				response = false;
 			}
 		}
 		return response;
 	}
-
-	// RENVOYER LES INDICES DE LOCALISATION DES SOUS-CARRÉS !! ET NON DIRECTEMENT
-	// LES SOUS-CARRÉS.
 
 	public int[][] quelCarre(int num_ligne, int num_col) {
 		int[][] sous_mat = new int[3][3];
@@ -137,12 +134,12 @@ public class Matrix99 {
 		return sous_mat;
 	}
 
-	public boolean estCarre(int value, int[][] carre) {
-		boolean response = false;
+	public boolean absenteCarre(int value, int[][] carre) {
+		boolean response = true;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (carre[i][j] == value) {
-					response = true;
+					response = false;
 				}
 			}
 		}
