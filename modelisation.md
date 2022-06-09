@@ -13,11 +13,16 @@
     SujetSudomath : +String commentaire
     SujetSudomath : +Exercice[] exercices
     SujetSudomath : +Utilisateur auteur
+    class Bloc
+    Exercice o-- Bloc
+    Bloc : +String[] enonces
+    Bloc : +String[][] variables
+    Bloc : +int[][] reponses
+    Bloc : +boolean[] isVariable
+    Bloc : +int[][] lienSolutionVariable
     class Exercice
     Exercice : +int id
-    Exercice : +String[] enonces
-    Exercice : +String[] variables
-    Exercice : +String[] reponses
+    Exercice : +bloc[] blocs
     Exercice : +String niveau
     Exercice : +String theme
     SujetSudomath o-- Exercice
@@ -38,5 +43,16 @@
     ModeleLaTeX : +String[] modele
     ModeleLaTeX : +Utilisateur auteur
 
+```
+
+## Diagramme d'activité
+
+```mermaid
+graph LR
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
 
 ```
