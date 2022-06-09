@@ -2,7 +2,7 @@ package fr.ensai.projet;
 
 import java.util.Random;
 
-public class Sudoku {
+public class Sudoku implements Cloneable {
 
 	public Matrix99 grille;
 	public boolean[][][] possibilites; // la liste des chiffres possibles pour chaque case
@@ -26,6 +26,37 @@ public class Sudoku {
 			}
 		}
 		return valeursPossibles;
+	}
+
+	public int nbCasesVidesLigne(int num_ligne) {
+		int nb = 0;
+		for (int num_col = 0; num_col < 9; num_col++) {
+			if (nbValeursPossibles(num_ligne, num_col) > 0) {
+				nb += 1;
+			}
+		}
+		return nb;
+	}
+
+	public int nbCasesVidesColonne(int num_col) {
+		int nb = 0;
+		for (int num_ligne = 0; num_ligne < 9; num_ligne++) {
+			if (nbValeursPossibles(num_ligne, num_col) > 0) {
+				nb += 1;
+			}
+		}
+		return nb;
+	}
+
+	public int nbCasesVidesCarre(int num_ligne, int num_col) {
+		int nb = 0;
+		boolean[][][] carre = quelCarre3D(num_ligne, num_col);
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (carre[i][j] 
+			}
+		}
+		return nb;
 	}
 
 	// Une fois l'élément de la ligne num_ligne et de la colonne num_col modifié,
@@ -161,25 +192,46 @@ public class Sudoku {
 		changePossibilitesCarre(value, num_ligne, num_col);
 	}
 
-	public void remplir() {
-		Random r = new Random();
-		int num_ligne = r.nextInt(9);
-		int num_col = r.nextInt(9);
-		if (nbValeursPossibles(num_ligne, num_col) == 1) {
-			for (int i = 0; i < 9; i++) {
-				if (possibilites[num_ligne][num_col][i]) {
-					grille.remplir(i + 1, num_ligne, num_col);
-					changePossibilites(i + 1, num_ligne, num_col);
+	public void remplir(Matrix99 grille_test) {
+		for (int num_ligne = 0; num_ligne < 9; num_ligne++) {
+			if (nbCasesVidesLigne(num_ligne) == 1) {
+
+			}
+			for (int num_col = 0; num_col < 9; num_col++) {
+				if (nbCasesVidesColonne(num_col) == 1) {
+
+				}
+				if (nbCasesVidesCarre(num_ligne, num_col) == 1) {
+
 				}
 			}
 		}
-		int valeur = r.nextInt(9) + 1;
-		if (possibilites[num_ligne][num_col][valeur - 1]) {
-			grille.remplir(valeur, num_ligne, num_col);
-			changePossibilites(valeur, num_ligne, num_col);
-			this.nb_restants -= 1;
+		Random r = new Random();
+		int numero_ligne = r.nextInt(9);
+		int numero_col = r.nextInt(9);
+		if (nbValeursPossibles(numero_ligne, numero_col) == 1) {
+			for (int i = 0; i < 9; i++) {
+				if (possibilites[numero_ligne][numero_col][i]) {
+					grille_test.remplir(i + 1, numero_ligne, numero_col);
+					changePossibilites(i + 1, numero_ligne, numero_col);
+				}
+			}
+		} else {
+			int valeur = r.nextInt(9) + 1;
+			if (possibilites[numero_ligne][numero_col][valeur - 1]) {
+				grille_test.remplir(valeur, numero_ligne, numero_col);
+				changePossibilites(valeur, numero_ligne, numero_col);
+				this.nb_restants -= 1;
+			}
 		}
+	}
 
+	public boolean estSolvable(Matrix99 grille_test) {
+		boolean response = true;
+		while (this.nb_restants > 0) {
+			remplir(grille_test);
+		}
+		return response;
 	}
 
 	public Sudoku() {
@@ -194,8 +246,9 @@ public class Sudoku {
 			}
 		}
 		this.nb_restants = 81;
-		while (this.nb_restants > 0) {
-			remplir();
+		Matrix99 grille_test = grille;
+		if (estSolvable(grille_test)) {
+
 		}
 	}
 
