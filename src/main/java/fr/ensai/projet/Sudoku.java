@@ -2,11 +2,12 @@ package fr.ensai.projet;
 
 import java.util.Random;
 
-public class Sudoku implements Cloneable {
+public class Sudoku {
 
 	public Matrix99 grille;
 	public boolean[][][] possibilites; // la liste des chiffres possibles pour chaque case
 	public int nb_restants;
+	public boolean estSolvable;
 
 	public int nbValeursPossibles(int num_ligne, int num_col) {
 		int compt = 0;
@@ -38,6 +39,17 @@ public class Sudoku implements Cloneable {
 		return nb;
 	}
 
+	// Pour récupérer le num de colonne de la case vide sur une ligne donnée.
+	public int getNumCaseVideLigne(int num_ligne) {
+		int nb = 0;
+		for (int num_col = 0; num_col < 9; num_col++) {
+			if (nbValeursPossibles(num_ligne, num_col) > 0) {
+				nb = num_col;
+			}
+		}
+		return nb;
+	}
+
 	public int nbCasesVidesColonne(int num_col) {
 		int nb = 0;
 		for (int num_ligne = 0; num_ligne < 9; num_ligne++) {
@@ -48,12 +60,43 @@ public class Sudoku implements Cloneable {
 		return nb;
 	}
 
-	public int nbCasesVidesCarre(int num_ligne, int num_col) {
+	// Pour récupérer le num de ligne de la case vide sur une colonne donnée.
+	public int getNumCaseVideColonne(int num_col) {
 		int nb = 0;
-		boolean[][][] carre = quelCarre3D(num_ligne, num_col);
+		for (int num_ligne = 0; num_ligne < 9; num_ligne++) {
+			if (nbValeursPossibles(num_ligne, num_col) > 0) {
+				nb = num_ligne;
+			}
+		}
+		return nb;
+	}
+
+	public int nbCasesVidesCarre(boolean[][][] carre) {
+		int nb = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (carre[i][j] 
+				int compt = 0;
+				for (int k = 0; k < 9; k++) {
+					if (carre[i][j][k]) {
+						compt += 1;
+					}
+				}
+				if (compt > 0) {
+					nb += 1;
+				}
+			}
+		}
+		return nb;
+	}
+
+	// Pour récupérer le num de ligne et de colonne de la case vide dans un carré
+	// donné.
+	public int getNumCaseVideCarre(int num_ligne, int num_col) {
+		int numero_ligne = 0;
+		int numero_col = 0;
+		for (int num_ligne = 0; num_ligne < 9; num_ligne++) {
+			if (nbValeursPossibles(num_ligne, num_col) > 0) {
+				nb = num_ligne;
 			}
 		}
 		return nb;
@@ -190,20 +233,40 @@ public class Sudoku implements Cloneable {
 		changePossibilitesLigne(value, num_ligne);
 		changePossibilitesColonne(value, num_col);
 		changePossibilitesCarre(value, num_ligne, num_col);
+		this.nb_restants -= 1;
 	}
 
 	public void remplir(Matrix99 grille_test) {
 		for (int num_ligne = 0; num_ligne < 9; num_ligne++) {
+			// Si on trouve une ligne sur laquelle une seule case n'est pas remplie
 			if (nbCasesVidesLigne(num_ligne) == 1) {
-
+				int col_vide = getNumCaseVideLigne(num_ligne);
+				for (int i = 0; i < 9; i++) {
+					if (possibilites[num_ligne][col_vide][i]) {
+						grille_test.remplir(i, num_ligne, col_vide);
+						changePossibilites(i + 1, num_ligne, col_vide);
+					}
+				}
 			}
 			for (int num_col = 0; num_col < 9; num_col++) {
+				// Si on trouve une ligne sur laquelle une seule case n'est pas remplie
 				if (nbCasesVidesColonne(num_col) == 1) {
-
+					int ligne_vide = getNumCaseVideColonne(num_col);
+					for (int i = 0; i < 9; i++) {
+						if (possibilites[ligne_vide][num_col][i]) {
+							grille_test.remplir(i, ligne_vide, num_col);
+							changePossibilites(i + 1, ligne_vide, num_col);
+						}
+					}
 				}
-				if (nbCasesVidesCarre(num_ligne, num_col) == 1) {
-
+				boolean[][][] carre3D = quelCarre3D(num_ligne, num_col) {
+					if (nbCasesVidesCarre(carre3D) == 1) {
+						for (int k = 0; k < 9; k++) {
+							
+						}
+					}
 				}
+				
 			}
 		}
 		Random r = new Random();
@@ -221,17 +284,8 @@ public class Sudoku implements Cloneable {
 			if (possibilites[numero_ligne][numero_col][valeur - 1]) {
 				grille_test.remplir(valeur, numero_ligne, numero_col);
 				changePossibilites(valeur, numero_ligne, numero_col);
-				this.nb_restants -= 1;
 			}
 		}
-	}
-
-	public boolean estSolvable(Matrix99 grille_test) {
-		boolean response = true;
-		while (this.nb_restants > 0) {
-			remplir(grille_test);
-		}
-		return response;
 	}
 
 	public Sudoku() {
@@ -246,8 +300,14 @@ public class Sudoku implements Cloneable {
 			}
 		}
 		this.nb_restants = 81;
+		this.estSolvable = true;
+		// On rentre les valeurs initiales de la grille
+		for (int i = 0; i < 24; i++) {
+			remplir(grille);
+		}
 		Matrix99 grille_test = grille;
-		if (estSolvable(grille_test)) {
+		remplir(grille_test);
+		if (this.estSolvable) {
 
 		}
 	}
