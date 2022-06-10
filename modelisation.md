@@ -66,7 +66,9 @@ stateDiagram-v2
         [*] --> TirageBloc
         TirageBloc --> TirageAleatoire : Si nb_tirage < nb_blocs 
         TirageBloc --> EditionEnonceSudoMath : Si nb_tirage == nb_blocs 
-        TirageAleatoire --> ModificationEnonceBlocs
+        TirageAleatoire --> VerificationTirage
+        VerificationTirage --> ModificationEnonceBlocs
+        VerificationTirage --> TirageAleatoire 
         ModificationEnonceBlocs --> AjoutReponse
         AjoutReponse --> TirageBloc
         EditionEnonceSudoMath --> [*]
