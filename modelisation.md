@@ -83,4 +83,16 @@ stateDiagram-v2
     Vérification_nb_grille --> CréationEnonceSudoMaths : Si nb_grille == nbEleves
     CréationEnonceSudoMaths --> CréationSujetSudoMaths
     CréationSujetSudoMaths --> [*]
+
+```
+## Organigramme de programmation
+
+```mermaid
+    graph TD
+    A[On génère un sudoku, qui est un objet contenant une grille] --> B[On remplit aléatoirement 24 cases de la grille]
+    B --> G[On tente de résoudre la grille avec les 24 chiffres pré-remplis, selon les règles du sudoku]
+    G --> C{La grille peut être résolue}
+    C -->|oui| D[On ajoute la grille du sudokus dans la base JSON]
+    C -->|non| E[On oublie ce sudoku, et on en génère un nouveau]
+
 ```
