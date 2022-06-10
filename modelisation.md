@@ -4,13 +4,19 @@
     classDiagram
     class Sudoku
     Sudoku : +matrix99 grille
-    Sudoku : +int[9][9][9] impossibilites
+    Sudoku : +int[9][9][9] possibilites
     Sudoku : +Sudoku()
     Sudoku : +boolean ValeurEstPossible((int value, int num_ligne, int num_col))
-    Sudoku : +void changeImpossibilitesLigne(int value, int num_ligne)
-    Sudoku : +void changeImpossibilitesColonne(int value, int num_col)
+    Sudoku : +void changePossibilitesLigne(int value, int num_ligne)
+    Sudoku : +void changePossibilitesColonne(int value, int num_col)
     
     class Matrix99
+    Matrix99 : +int[9][9] mat
+    Matrix99 : +void remplir(int value, int num_ligne, int num_col)
+    Matrix99 : +boolean absenteLigne(int value, int num_ligne)
+    Matrix99 : +boolean absenteColonne(int value, int num_col)
+    Matrix99 : +int[][] quelCarre(int num_ligne, int num_col)
+    Matrix99 : +boolean absenteCarre(int value, int[][] carre)
     Sudoku o-- Matrix99
     class EnonceSudomath
     EnonceSudomath : +int id
@@ -24,7 +30,6 @@
     Bloc : +String[][] variables
     Bloc : +int[][] reponses
     Bloc : +boolean[] isVariable
-    Bloc : +int[][] lienSolutionVariable
     class Exercice
     Exercice : +int id
     Exercice : +bloc[] blocs
